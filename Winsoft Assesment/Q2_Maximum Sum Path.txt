@@ -1,0 +1,44 @@
+import java.util.*;
+
+public class Q2_Solution {
+    public static int maxSumPath(int[] x, int[] y) {
+        int m = x.length;
+        int n = y.length;
+
+        int i = 0, j = 0;
+        int s1 = 0, s2 = 0;
+        int ans = 0;
+
+        while (i < m && j < n) {
+            if (x[i] < y[j])
+                s1 += x[i++];
+            else if (x[i] > y[j])
+                s2 += y[j++];
+            else {
+                ans += Math.max(s1, s2);
+                ans += x[i];
+                s1 = 0;
+                s2 = 0;
+                i++;
+                j++;
+            }
+        }
+
+        while (i < m)
+            s1 += x[i++];
+
+        while (j < n)
+            s2 += y[j++];
+
+        ans += Math.max(s1, s2);
+
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        int[] x = { 3, 6, 7, 8, 10, 12, 15, 18, 100 };
+        int[] y = { 1, 2, 3, 5, 7, 9, 10, 11, 15, 16, 18, 25, 50 };
+
+        System.out.println("Maximum sum path is: " + maxSumPath(x, y));
+    }
+}
